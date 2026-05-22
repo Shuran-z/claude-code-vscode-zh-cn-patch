@@ -1,0 +1,436 @@
+{
+  "schema": 1,
+  "extensionId": "anthropic.claude-code",
+  "locale": "zh-CN",
+  "testedVersions": [
+    "2.1.145"
+  ],
+  "files": {
+    "package.json": {
+      "package": {
+        "root": {
+          "displayName": "Claude Code（VS Code 版）",
+          "description": "Claude Code（VS Code 版）：无需离开 IDE 即可使用 Claude Code"
+        },
+        "configurationTitle": "Claude Code",
+        "configurationProperties": {
+          "claudeCode.environmentVariables": {
+            "description": "启动 Claude 时设置的环境变量。\n\n建议优先在 Claude 的 settings.json 中设置环境变量。\n参见文档：https://code.claude.com/docs/en/settings"
+          },
+          "claudeCode.useTerminal": {
+            "description": "在终端中启动 Claude，而不是使用原生界面。"
+          },
+          "claudeCode.allowDangerouslySkipPermissions": {
+            "description": "允许绕过权限模式。仅建议在无交互式 E2E 测试沙盒中使用。"
+          },
+          "claudeCode.initialPermissionMode": {
+            "description": "新会话的初始权限模式。"
+          },
+          "claudeCode.disableLoginPrompt": {
+            "description": "为 true 时，扩展内不会提示登录或认证。适用于由外部系统处理认证的场景。"
+          },
+          "claudeCode.autosave": {
+            "description": "在 Claude 读写文件前自动保存文件。"
+          },
+          "claudeCode.useCtrlEnterToSend": {
+            "description": "启用后，使用 Ctrl/Cmd+Enter 发送提示，而不是仅按 Enter。这样 Enter 可用于换行。"
+          },
+          "claudeCode.preferredLocation": {
+            "enumDescriptions": [
+              "侧边栏（右侧）",
+              "面板（新选项卡）"
+            ],
+            "description": "Claude 默认打开的位置。当你在新位置打开 Claude 时，此设置会自动更新。"
+          },
+          "claudeCode.enableNewConversationShortcut": {
+            "description": "当 Claude 获得焦点时，使用 Cmd/Ctrl+N 快捷键开始新会话。"
+          },
+          "claudeCode.hideOnboarding": {
+            "description": "隐藏 Claude Code 中的新手引导清单。"
+          }
+        },
+        "commands": {
+          "claude-vscode.editor.open": {
+            "title": "Claude Code：在新选项卡中打开"
+          },
+          "claude-vscode.editor.openLast": {
+            "title": "Claude Code：打开"
+          },
+          "claude-vscode.primaryEditor.open": {
+            "title": "Claude Code：在主编辑器中打开"
+          },
+          "claude-vscode.window.open": {
+            "title": "Claude Code：在新窗口中打开"
+          },
+          "claude-vscode.createWorktree": {
+            "title": "Claude Code：创建工作树"
+          },
+          "claude-vscode.sidebar.open": {
+            "title": "Claude Code：在侧边栏中打开"
+          },
+          "claude-vscode.newConversation": {
+            "title": "Claude Code：新建会话"
+          },
+          "claude-vscode.reopenClosedSession": {
+            "title": "Claude Code：重新打开已关闭会话"
+          },
+          "claude-vscode.update": {
+            "title": "Claude Code：更新扩展"
+          },
+          "claude-vscode.showLogs": {
+            "title": "Claude Code：显示日志"
+          },
+          "claude-vscode.openWalkthrough": {
+            "title": "Claude Code：打开引导"
+          }
+        },
+        "viewsContainers": {
+          "claude-sidebar": {
+            "title": "Claude Code 会话"
+          },
+          "claude-sessions-sidebar": {
+            "title": "Claude Code 会话"
+          },
+          "claude-sidebar-secondary": {
+            "title": "Claude Code 会话"
+          }
+        },
+        "views": {
+          "claudeVSCodeSideBar": {
+            "name": "Claude Code 对话"
+          },
+          "claudeVSCodeSideBarSecondary": {
+            "name": "Claude Code 对话"
+          }
+        },
+        "walkthroughs": {
+          "claude-code-walkthrough": {
+            "title": "开始使用 Claude Code",
+            "description": "了解如何使用 Claude Code 编写、编辑和理解你的代码。",
+            "steps": {
+              "welcome": {
+                "title": "欢迎使用 Claude Code",
+                "description": "Claude Code 可直接在 VS Code 中帮助你编写、编辑和理解代码。"
+              },
+              "open-claude": {
+                "title": "打开 Claude Code",
+                "description": "点击右上角的橙色 Claude 图标，或按 Ctrl+Escape（Mac 为 Cmd+Escape）开始会话。"
+              },
+              "chat": {
+                "title": "与 Claude 对话",
+                "description": "输入消息并按 Enter。你可以提问、请求修改，或让 Claude 帮你理解代码。"
+              },
+              "sessions": {
+                "title": "恢复之前的会话",
+                "description": "点击顶部的历史会话按钮，或输入 /resume 浏览过去的会话。"
+              }
+            }
+          }
+        },
+        "untrustedWorkspaces": {
+          "description": "Claude Code 需要可信工作区才能运行。"
+        }
+      }
+    },
+    "extension.js": {
+      "replace": [
+        {
+          "from": "✻ [Claude Code Diff]",
+          "to": "✻ [Claude Code 差异]"
+        },
+        {
+          "from": "createOutputChannel(\"Claude Code Log\"",
+          "to": "createOutputChannel(\"Claude Code 日志\""
+        },
+        {
+          "from": "createWebviewPanel(\"claudeVSCodePanel\",\"Claude Code Chat\"",
+          "to": "createWebviewPanel(\"claudeVSCodePanel\",\"Claude Code 对话\""
+        },
+        {
+          "from": "w.tooltip=\"Open Claude Code\"",
+          "to": "w.tooltip=\"打开 Claude Code\""
+        },
+        {
+          "from": "showInformationMessage(\"Successfully logged out of Claude\")",
+          "to": "showInformationMessage(\"已成功退出 Claude 登录\")"
+        }
+      ]
+    },
+    "webview/index.js": {
+      "replace": [
+        {
+          "from": "var n20=[\"Context\",\"Model\",\"Customize\",\"Slash Commands\",\"Settings\",\"Support\"]",
+          "to": "var n20=[\"上下文\",\"模型\",\"自定义\",\"斜杠命令\",\"设置\",\"支持\"]"
+        },
+        {
+          "from": "if(Z===\"Context\")",
+          "to": "if(Z===\"上下文\")"
+        },
+        {
+          "from": "if(Z===\"Model\")",
+          "to": "if(Z===\"模型\")"
+        },
+        {
+          "from": "if(Z===\"Slash Commands\")",
+          "to": "if(Z===\"斜杠命令\")"
+        },
+        {
+          "from": "},\"Context\",",
+          "to": "},\"上下文\","
+        },
+        {
+          "from": "},\"Model\",",
+          "to": "},\"模型\","
+        },
+        {
+          "from": "},\"Customize\",",
+          "to": "},\"自定义\","
+        },
+        {
+          "from": "},\"Slash Commands\",",
+          "to": "},\"斜杠命令\","
+        },
+        {
+          "from": "},\"Settings\",",
+          "to": "},\"设置\","
+        },
+        {
+          "from": "},\"Support\",",
+          "to": "},\"支持\","
+        },
+        {
+          "from": "label:\"Ask before edits\",description:\"Claude will ask for approval before making each edit\"",
+          "to": "label:\"编辑前询问\",description:\"Claude 每次编辑前都会请求批准\""
+        },
+        {
+          "from": "label:\"Edit automatically\",description:\"Claude will edit your selected text or the whole file\"",
+          "to": "label:\"自动编辑\",description:\"Claude 会编辑所选文本或整个文件\""
+        },
+        {
+          "from": "label:\"Plan mode\",description:\"Claude will explore your code and propose a plan before making changes\"",
+          "to": "label:\"计划模式\",description:\"Claude 会先探索代码并提出计划，然后再编辑\""
+        },
+        {
+          "from": "label:\"Auto mode\",description:\"Claude will automatically choose the best permission mode for each task\"",
+          "to": "label:\"自动模式\",description:\"Claude 会为每个任务自动选择最佳权限模式\""
+        },
+        {
+          "from": "label:\"Bypass permissions\",description:\"Claude will not ask for approval before running potentially dangerous commands\"",
+          "to": "label:\"绕过权限\",description:\"Claude 运行潜在危险命令前不会请求批准\""
+        },
+        {
+          "from": "low:\"Low\",medium:\"Medium\",high:\"High\",xhigh:\"Extra high\",max:\"Max\"",
+          "to": "low:\"低\",medium:\"中\",high:\"高\",xhigh:\"超高\",max:\"最大\""
+        },
+        {
+          "from": "function vA($){return $?hN0[$]??\"Auto\":\"Auto\"}",
+          "to": "function vA($){return $?hN0[$]??\"自动\":\"自动\"}"
+        },
+        {
+          "from": "label:\"Effort\",labelSuffix:t5,description:\"Set how hard the model tries\"",
+          "to": "label:\"思考强度\",labelSuffix:t5,description:\"设置模型的思考深度\""
+        },
+        {
+          "from": "label:\"Toggle fast mode\",description:\"Toggle fast mode for faster responses (Opus only)\"",
+          "to": "label:\"切换快速模式\",description:\"切换快速模式以更快响应（仅 Opus）\""
+        },
+        {
+          "from": "label:\"Switch model…\",description:\"Change the AI model\"",
+          "to": "label:\"切换模型…\",description:\"切换 AI 模型\""
+        },
+        {
+          "from": "label:\"Account & usage…\",description:\"View account info and usage limits\"",
+          "to": "label:\"账户和用量…\",description:\"查看账户信息和用量限制\""
+        },
+        {
+          "from": "label:\"Manage plugins\",description:\"Install, enable, or disable plugins\"",
+          "to": "label:\"管理插件\",description:\"安装、启用或禁用插件\""
+        },
+        {
+          "from": "closeTooltip:\"Dismiss error\"",
+          "to": "closeTooltip:\"关闭错误\""
+        },
+        {
+          "from": "closeTooltip:\"Dismiss warning\"",
+          "to": "closeTooltip:\"关闭警告\""
+        },
+        {
+          "from": "\"View usage\"",
+          "to": "\"查看用量\""
+        },
+        {
+          "from": "\"Drop to attach as context\"",
+          "to": "\"拖放以作为上下文附加\""
+        },
+        {
+          "from": "\"aria-label\":\"Message input\"",
+          "to": "\"aria-label\":\"消息输入框\""
+        },
+        {
+          "from": "\"Queue another message…\"",
+          "to": "\"继续输入下一条消息…\""
+        },
+        {
+          "from": "\"Ask Claude to edit…\"",
+          "to": "\"让 Claude 编辑…\""
+        },
+        {
+          "from": "`${c0} to attach selected text`",
+          "to": "`${c0} 附加选中文本`"
+        },
+        {
+          "from": "`${c0} to focus or unfocus Claude`",
+          "to": "`${c0} 聚焦或取消聚焦 Claude`"
+        },
+        {
+          "from": "title:\"Rewind to…\"",
+          "to": "title:\"回退到…\""
+        },
+        {
+          "from": "\"No messages to rewind to yet.\"",
+          "to": "\"暂无可回退的消息。\""
+        },
+        {
+          "from": "\"Select a message to restore code and fork the conversation from that point.\"",
+          "to": "\"选择一条消息，从该位置恢复代码并派生会话。\""
+        },
+        {
+          "from": "\" to navigate · \"",
+          "to": "\" 导航 · \""
+        },
+        {
+          "from": "\" to select ·\"",
+          "to": "\" 选择 ·\""
+        },
+        {
+          "from": "\" to close\"",
+          "to": "\" 关闭\""
+        },
+        {
+          "from": "VN.default.createElement(\"label\",null,\"Explored\")",
+          "to": "VN.default.createElement(\"label\",null,\"已探索\")"
+        },
+        {
+          "from": "`Plugin \"${z0}\" is already installed.`",
+          "to": "`插件“${z0}”已安装。`"
+        },
+        {
+          "from": "`Plugin \"${z0}\" not found in the marketplace.`",
+          "to": "`在市场源中找不到插件“${z0}”。`"
+        },
+        {
+          "from": "\"Restart Claude to apply plugin changes\"",
+          "to": "\"重启 Claude 以应用插件更改\""
+        },
+        {
+          "from": "label:\"Browse the web\",title:\"Add browser tabs to the conversation\"",
+          "to": "label:\"浏览网页\",title:\"将浏览器选项卡加入会话\""
+        },
+        {
+          "from": "\"Arguments: \"",
+          "to": "\"参数：\""
+        },
+        {
+          "from": "\"Use skill\"",
+          "to": "\"使用技能\""
+        },
+        {
+          "from": "\"Do you want to proceed with \"",
+          "to": "\"是否继续执行 \""
+        },
+        {
+          "from": "\"Yes, and manually approve edits\"",
+          "to": "\"是，并手动批准编辑\""
+        },
+        {
+          "from": "\"Allow this bash command?\"",
+          "to": "\"允许执行此 Bash 命令吗？\""
+        },
+        {
+          "from": "\"Auth method\"",
+          "to": "\"认证方式\""
+        },
+        {
+          "from": "\"Account\"",
+          "to": "\"账户\""
+        },
+        {
+          "from": "\"Email\"",
+          "to": "\"邮箱\""
+        },
+        {
+          "from": "\"Organization\"",
+          "to": "\"组织\""
+        },
+        {
+          "from": "\"Authenticated successfully\"",
+          "to": "\"认证成功\""
+        },
+        {
+          "from": "\"Authentication failed\"",
+          "to": "\"认证失败\""
+        },
+        {
+          "from": "\"Session (5hr)\"",
+          "to": "\"会话（5 小时）\""
+        },
+        {
+          "from": "\"Weekly (7 day)\"",
+          "to": "\"每周（7 天）\""
+        },
+        {
+          "from": "\"Connecting to claude.ai/code…\"",
+          "to": "\"正在连接 claude.ai/code…\""
+        },
+        {
+          "from": "\"Remote Control connected ·\"",
+          "to": "\"远程控制已连接 ·\""
+        },
+        {
+          "from": "\"Open in browser\"",
+          "to": "\"在浏览器中打开\""
+        },
+        {
+          "from": "`Remote Control error: ${$.error}`",
+          "to": "`远程控制错误：${$.error}`"
+        },
+        {
+          "from": "\"Remote Control disabled.\"",
+          "to": "\"远程控制已关闭。\""
+        },
+        {
+          "from": "\"Connecting to browser…\"",
+          "to": "\"正在连接浏览器…\""
+        },
+        {
+          "from": "\"Browser connected\"",
+          "to": "\"浏览器已连接\""
+        },
+        {
+          "from": "`Browser error: ${$.error}`",
+          "to": "`浏览器错误：${$.error}`"
+        },
+        {
+          "from": "\"Branch switch failed\"",
+          "to": "\"分支切换失败\""
+        },
+        {
+          "from": "\"Could not switch to \"",
+          "to": "\"无法切换到 \""
+        }
+      ]
+    },
+    "resources/walkthrough/step1.md": {
+      "content": "![欢迎使用 Claude Code](welcome.png)\n\n**Claude Code 可直接在 VS Code 中帮助你编写、编辑和理解代码。**\n\nClaude 可以读取文件、运行编辑、执行终端命令，并帮助你理解复杂代码库。\n\n更偏好终端体验？可以从命令面板运行 **Claude Code：在终端中打开**，也可以在设置中永久启用。\n"
+    },
+    "resources/walkthrough/step2.md": {
+      "content": "![打开 Claude Code](click.png)\n\n**点击编辑器右上角的橙色 Claude 图标。**\n\n也可以使用快捷键 **Ctrl+Escape**（Windows/Linux）或 **Cmd+Escape**（Mac）快速打开 Claude Code，或在 Claude Code 和当前编辑器之间切换焦点。\n"
+    },
+    "resources/walkthrough/step3.md": {
+      "content": "![与 Claude 对话](chat.png)\n\n**你可以提问、请求修改，或让 Claude 帮你理解代码。**\n\n在输入框中输入消息并按 Enter。Claude 可以帮你：\n\n- 解释代码\n- 修复 bug 和错误\n- 编写新功能\n- 重构或清理代码\n- 运行命令并理解输出\n\n使用 **@** 提及特定文件或文件夹作为上下文。你也可以先选中代码，再围绕选中内容向 Claude 提问。\n"
+    },
+    "resources/walkthrough/step4.md": {
+      "content": "![管理会话](past.png)\n\n**随时回到之前的会话。**\n\n会话会自动保存。点击顶部的 **历史会话** 按钮，或输入 **/resume** 浏览过去的会话，并从上次中断的位置继续。\n\n要开始全新会话，请点击 **新建聊天** 按钮。你也可以在设置中启用 **Ctrl+N** / **Cmd+N** 快捷键。\n"
+    }
+  }
+}
